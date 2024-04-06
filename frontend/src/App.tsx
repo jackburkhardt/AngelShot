@@ -1,9 +1,15 @@
 import "./App.css";
+import React, { useState } from "react";
 import { AudioRecorder } from "./components/AudioRecorder";
 function App() {
+  const [transcription, setTranscription] = useState("");
+
   return (
     <>
-      <AudioRecorder />
+      <AudioRecorder
+        transcription={transcription}
+        setTranscription={setTranscription}
+      />
     </>
   );
 }
