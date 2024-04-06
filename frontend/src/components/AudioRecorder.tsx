@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   TranscribeStreamingClient,
   StartStreamTranscriptionCommand,
@@ -8,8 +7,15 @@ import MicrophoneStream from "microphone-stream";
 import { Buffer } from "buffer";
 import { AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY } from "../aws";
 
-export function AudioRecorder() {
-  const [transcription, setTranscription] = useState("");
+interface AudioRecorderProps {
+  transcription: string;
+  setTranscription: (transcription: string) => void;
+}
+
+export function AudioRecorder({
+  transcription,
+  setTranscription,
+}: AudioRecorderProps) {
   let microphoneStream: MicrophoneStream | undefined = undefined; // CHANGE TYPE WHEN WE KNOW WHAT IT IS
   const language: LanguageCode = "en-US";
   const SAMPLE_RATE = 44100; // this is the sample rate in hertz
