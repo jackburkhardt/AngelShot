@@ -3,12 +3,11 @@ import {
   StartStreamTranscriptionCommand,
   LanguageCode,
 } from "@aws-sdk/client-transcribe-streaming";
-
 import MicrophoneStream from "microphone-stream";
 import { Buffer } from "buffer";
-
 import { AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY } from "../aws";
 
+const [transcription, setTranscription] = useState("");
 let microphoneStream: MicrophoneStream | undefined = undefined; // CHANGE TYPE WHEN WE KNOW WHAT IT IS
 const language: LanguageCode = "en-US";
 const SAMPLE_RATE = 44100; // this is the sample rate in hertz
@@ -115,9 +114,8 @@ async function startRecording(callback: any) {
   await startStreaming(language, callback);
 }
 
-let transcription: string = "";
 function transcribeCallback(text: string) {
-  transcription += text;
+  setTranscription((prevTranscription: string) => prevTranscription + text);
 }
 export function AudioRecorder() {
   return (
