@@ -8,9 +8,4 @@ export default defineConfig({
     react(),
     nodePolyfills(),
   ],
-  resolve: {
-    alias: {
-      web3: 'web3/dist/web3.min.js',
-    }
-  },
 })
