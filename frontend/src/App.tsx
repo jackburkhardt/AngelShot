@@ -16,19 +16,8 @@ function App() {
     setTranscriptionToSend("");
   }, [fullRecording]);
 
-  // ModelHookChat({
-  //   conversation_history: [],
-  //   who: "friend",
-  //   gender: "female",
-  //   situation: "I am in a rideshare on my way home.",
-  // });
   return (
     <main>
-      {/* <AudioRecorder
-        setFullRecording={setFullRecording}
-        transcriptionToSend={transcriptionToSend}
-        setTranscriptionToSend={setTranscriptionToSend}
-      /> */}
       <Onboarding />
       <footer>
         <Button color="red">

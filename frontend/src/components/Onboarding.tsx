@@ -18,7 +18,6 @@ import {
 import { AudioRecorder } from "./AudioRecorder";
 import { ModelHookChat } from "./ModelHook";
 
-
 export function Onboarding({}) {
   const [what, setWhat] = useState("");
   const [who, setWho] = useState("");
@@ -39,11 +38,15 @@ export function Onboarding({}) {
   }, [fullRecording]);
 
   useEffect(() => {
-    setWhat(customSituation);
+    if (customSituation !== "") {
+        setWhat(customSituation);
+    }
   }, [customSituation]);
 
   useEffect(() => {
-    setWho(customPerson);
+    if (customPerson !== "") {
+        setWho(customPerson);
+    }
   }, [customPerson]);
 
   useEffect(() => {
@@ -60,11 +63,24 @@ export function Onboarding({}) {
 
   const call = ({}) => {
     ModelHookChat({
-        conversation_history: [],
-        who: who,
-        gender: gender,
-        situation: what,
-      });
+      conversation_history: [],
+      who: who,
+      gender: gender,
+      situation: what,
+    });
+  };
+
+  const nextPageWhat = () => {
+    console.log("NextPageWhat");
+    console.log(what);
+    setCustomSituation("");
+    nextPage();
+  };
+  const nextPageWho = () => {
+    console.log("NextPageWho");
+    console.log(who);
+    setCustomPerson("");
+    nextPage();
   };
 
   const what_var = (
@@ -81,7 +97,7 @@ export function Onboarding({}) {
         <Chip.Group multiple={false} value={what} onChange={setWhat}>
           <Chip
             className="chip"
-            onClick={() => nextPage()}
+            onClick={() => nextPageWhat()}
             size="xl"
             value="Using Rideshare"
           >
@@ -89,7 +105,7 @@ export function Onboarding({}) {
           </Chip>
           <Chip
             className="chip"
-            onClick={() => nextPage()}
+            onClick={() => nextPageWhat()}
             size="xl"
             value="Walking Alone"
           >
@@ -97,7 +113,7 @@ export function Onboarding({}) {
           </Chip>
           <Chip
             className="chip"
-            onClick={() => nextPage()}
+            onClick={() => nextPageWhat()}
             size="xl"
             value="Family Emergency"
           >
@@ -105,7 +121,7 @@ export function Onboarding({}) {
           </Chip>
           <Chip
             className="chip"
-            onClick={() => nextPage()}
+            onClick={() => nextPageWhat()}
             size="xl"
             value="Friend Breakup"
           >
@@ -165,7 +181,7 @@ export function Onboarding({}) {
         <Chip.Group multiple={false} value={who} onChange={setWho}>
           <Chip
             className="chip"
-            onClick={() => nextPage()}
+            onClick={() => nextPageWho()}
             size="xl"
             value="Parent"
           >
@@ -173,7 +189,7 @@ export function Onboarding({}) {
           </Chip>
           <Chip
             className="chip"
-            onClick={() => nextPage()}
+            onClick={() => nextPageWho()}
             size="xl"
             value="Friend"
           >
@@ -181,7 +197,7 @@ export function Onboarding({}) {
           </Chip>
           <Chip
             className="chip"
-            onClick={() => nextPage()}
+            onClick={() => nextPageWho()}
             size="xl"
             value="Significant Other"
           >
