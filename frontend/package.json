@@ -13,6 +13,7 @@
     "@aws-sdk/client-transcribe-streaming": "^3.549.0",
     "buffer": "^6.0.3",
     "microphone-stream": "^6.0.1",
+    "openai": "^4.33.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
