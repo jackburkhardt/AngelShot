@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { AudioRecorder } from "./components/AudioRecorder";
 import { Onboarding } from "./components/Onboarding";
 import { ModelHookChat } from "./components/ModelHook";
+import { Button, Anchor } from "@mantine/core";
 
 function App() {
   const [fullRecording, setFullRecording] = useState("");
@@ -15,21 +16,28 @@ function App() {
     setTranscriptionToSend("");
   }, [fullRecording]);
 
-  ModelHookChat({
-    conversation_history: [],
-    who: "friend",
-    gender: "female",
-    situation: "I am in a rideshare on my way home.",
-  });
+  // ModelHookChat({
+  //   conversation_history: [],
+  //   who: "friend",
+  //   gender: "female",
+  //   situation: "I am in a rideshare on my way home.",
+  // });
   return (
-    <div>
+    <main>
       {/* <AudioRecorder
         setFullRecording={setFullRecording}
         transcriptionToSend={transcriptionToSend}
         setTranscriptionToSend={setTranscriptionToSend}
       /> */}
       <Onboarding />
-    </div>
+      <footer>
+        <Button color="red">
+          <Anchor href="tel:911" underline="never" c="white">
+            Call 911
+          </Anchor>
+        </Button>
+      </footer>
+    </main>
   );
 }
 
