@@ -1,6 +1,7 @@
 import "./App.css";
 import React, { useState } from "react";
 import { AudioRecorder } from "./components/AudioRecorder";
+import { Onboarding } from "./components/Onboarding";
 function App() {
   const [transcription, setTranscription] = useState("");
 
@@ -10,6 +11,7 @@ function App() {
         transcription={transcription}
         setTranscription={setTranscription}
       />
+      <Onboarding/>
     </>
   );
 }
