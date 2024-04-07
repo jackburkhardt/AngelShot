@@ -1,14 +1,23 @@
 import "./App.css";
-import React, { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { AudioRecorder } from "./components/AudioRecorder";
 function App() {
-  const [transcription, setTranscription] = useState("");
+  const [fullRecording, setFullRecording] = useState("");
+  const [transcriptionToSend, setTranscriptionToSend] = useState("");
+  // const lastChangeTime = useRef(Date.now());
+
+  useEffect(() => {
+    // API call to openAI
+    console.log("transcriptionToSend", transcriptionToSend);
+    setTranscriptionToSend("");
+  }, [fullRecording]);
 
   return (
     <>
       <AudioRecorder
-        transcription={transcription}
-        setTranscription={setTranscription}
+        setFullRecording={setFullRecording}
+        transcriptionToSend={transcriptionToSend}
+        setTranscriptionToSend={setTranscriptionToSend}
       />
     </>
   );
