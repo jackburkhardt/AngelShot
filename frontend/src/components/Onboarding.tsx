@@ -95,7 +95,8 @@ export function Onboarding({
             className="chip"
             onClick={() => nextPageWhat()}
             size="xl"
-            value="Using Rideshare"
+            value="I am in a rideshare on my way home."
+            radius={"300px"}
           >
             Using Rideshare
           </Chip>
@@ -103,7 +104,8 @@ export function Onboarding({
             className="chip"
             onClick={() => nextPageWhat()}
             size="xl"
-            value="Walking Alone"
+            value="I am walking home alone."
+            style={{ width: "300px" }}
           >
             Walking Alone
           </Chip>
@@ -111,7 +113,7 @@ export function Onboarding({
             className="chip"
             onClick={() => nextPageWhat()}
             size="xl"
-            value="Family Emergency"
+            value="My family member had a medical emergency."
           >
             Family Emergency
           </Chip>
@@ -119,7 +121,7 @@ export function Onboarding({
             className="chip"
             onClick={() => nextPageWhat()}
             size="xl"
-            value="Friend Breakup"
+            value="My friend went through a breakup."
           >
             Friend breakup
           </Chip>
@@ -265,6 +267,11 @@ export function Onboarding({
             Female
           </Chip>
         </Chip.Group>
+        <Text c="main_blue.7" style={{fontSize:"12px"}}>  
+        Angel Shot™ acknowledges and affirms that gender identity
+          is expanive and diverse. At this time, however, we are limited to a 
+          binary set of voices for the purpose of this application.
+        </Text>
       </Stack>
     </div>
   );
@@ -299,10 +306,13 @@ export function Onboarding({
         <Button
           onClick={() => setProcess("call")}
           size="xl"
-          style={{ padding: "10px" }}
-          h={"100px"}
-          w={"100px"}
+          style={{ padding: "1px", fontSize: "28px", borderWidth: "2.5px"}}
+          h={"150px"}
+          w={"150px"}
           radius={"50%"}
+          variant="outline"
+          justify="center"
+          m="auto"
         >
           Call me
         </Button>
