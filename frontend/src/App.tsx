@@ -5,7 +5,7 @@ import { Call } from "./components/Call";
 import { Button, Anchor } from "@mantine/core";
 
 function App() {
-  const [what, setWhat] = useState("");
+  const [situation, setSituation] = useState("");
   const [who, setWho] = useState("");
   const [gender, setGender] = useState("");
   const [process, setProcess] = useState("onboarding");
@@ -19,15 +19,15 @@ function App() {
             onboarding: (
               <Onboarding
                 setProcess={setProcess}
-                what={what}
+                situation={situation}
                 who={who}
                 gender={gender}
-                setWhat={setWhat}
+                setSituation={setSituation}
                 setWho={setWho}
                 setGender={setGender}
               />
             ),
-            call: <Call what={what} who={who} gender={gender} />,
+            call: <Call situation={situation} who={who} gender={gender} />,
           }[process]
         }
       </div>

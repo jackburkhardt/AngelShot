@@ -20,20 +20,20 @@ import {
 
 interface OnboardingProps {
   setProcess: (process: string) => void;
-  what: string;
+  situation: string;
   who: string;
   gender: string;
-  setWhat: (what: string) => void;
+  setSituation: (situation: string) => void;
   setWho: (who: string) => void;
   setGender: (gender: string) => void;
 }
 
 export function Onboarding({
   setProcess,
-  what,
+  situation,
   who,
   gender,
-  setWhat,
+  setSituation,
   setWho,
   setGender,
 }: OnboardingProps) {
@@ -44,7 +44,7 @@ export function Onboarding({
 
   useEffect(() => {
     if (customSituation !== "") {
-      setWhat(customSituation);
+      setSituation(customSituation);
     }
   }, [customSituation]);
 
@@ -56,7 +56,7 @@ export function Onboarding({
 
   useEffect(() => {
     if (
-      (page === 0 && what === "") ||
+      (page === 0 && situation === "") ||
       (page === 1 && who === "") ||
       (page === 2 && gender === "")
     ) {
@@ -64,11 +64,11 @@ export function Onboarding({
     } else {
       setNextAccessible(page <= 2);
     }
-  }, [page, what, who, gender]);
+  }, [page, situation, who, gender]);
 
   const nextPageWhat = () => {
     console.log("NextPageWhat");
-    console.log(what);
+    console.log(situation);
     setCustomSituation("");
     nextPage();
   };
@@ -90,7 +90,7 @@ export function Onboarding({
         gap="lg"
         className="content"
       >
-        <Chip.Group multiple={false} value={what} onChange={setWhat}>
+        <Chip.Group multiple={false} value={situation} onChange={setSituation}>
           <Chip
             className="chip"
             onClick={() => nextPageWhat()}
@@ -291,7 +291,7 @@ export function Onboarding({
           <Table.Tr></Table.Tr>
           <Table.Tr>
             <Table.Th>Calling about</Table.Th>
-            <Table.Td>{what}</Table.Td>
+            <Table.Td>{situation}</Table.Td>
           </Table.Tr>
           <Table.Tr>
             <Table.Th>With</Table.Th>
@@ -302,6 +302,7 @@ export function Onboarding({
             <Table.Td>{gender}</Table.Td>
           </Table.Tr>
         </Table>
+        <Text>The voice you are hearing is generated using AI. Your data is not stored.</Text>
         <Button
           onClick={() => setProcess("call")}
           size="xl"

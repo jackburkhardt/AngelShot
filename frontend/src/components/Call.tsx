@@ -8,17 +8,23 @@ import MicrophoneStream from "microphone-stream";
 import { Buffer } from "buffer";
 import { AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY } from "../aws";
 import { Stack, Button } from "@mantine/core";
-import { ModelHookChat } from "./components/ModelHook";
+import { ModelChat, ModelConfig } from "./Model";
 
 interface CallProps {
-  what: string;
+  situation: string;
   who: string;
   gender: string;
 }
 
-export function Call({ what, who, gender }: CallProps) {
+export function Call({ situation, who, gender }: CallProps) {
   const [fullRecording, setFullRecording] = useState("");
   const [transcriptionToSend, setTranscriptionToSend] = useState("");
+  const [conversation, setConversation] = useState<ModelConfig>({
+    conversation_history: [],
+    who: who,
+    situation: situation,
+    gender: gender
+  });
 
   let microphoneStream: MicrophoneStream | undefined = undefined; // CHANGE TYPE WHEN WE KNOW WHAT IT IS
   const language: LanguageCode = "en-US";
@@ -27,6 +33,18 @@ export function Call({ what, who, gender }: CallProps) {
 
   useEffect(() => {
     startRecording(transcribeCallback);
+    setConversation({
+      ...conversation,
+      conversation_history: [
+        ...conversation.conversation_history,
+        {role: "system", content: `Pretend you are having a conversation with the user over the phone. 
+              Only write exactly what you would say. 
+              Speak in an informal, conversational tone. 
+              Limit your responses to be no more than 2 sentences. Continue to ask followup questions to continue the conversation.  
+              You are my ${gender} ${who} with my location.  Here is the situation: ${situation}`},
+      ],
+    });
+    //ModelChat(conversation, setConversation);
     return () => {
       stopRecording();
     };
@@ -35,6 +53,13 @@ export function Call({ what, who, gender }: CallProps) {
   useEffect(() => {
     // API call to openAI
     console.log("transcriptionToSend", transcriptionToSend);
+    if (fullRecording !== "") {
+      setConversation({
+        ...conversation,
+        conversation_history: [...conversation.conversation_history, { role: "user", content: transcriptionToSend }],
+      });
+      ModelChat(conversation, setConversation, transcriptionToSend);
+    }
     setTranscriptionToSend("");
   }, [fullRecording]);
 
@@ -126,7 +151,7 @@ export function Call({ what, who, gender }: CallProps) {
       transcribeClient.destroy();
       transcribeClient = undefined;
     }
-    setTranscription("");
+    setTranscriptionToSend("");
   }
 
   async function startRecording(callback: any) {
