@@ -1,12 +1,13 @@
-import { Chip, TextInput } from "@mantine/core";
 import { useState, useEffect } from "react";
 import {
+  Chip,
+  TextInput,
   Stack,
   ActionIcon,
   Group,
   Image,
   Space,
-  Text,
+  Button,
   Title,
   Table,
 } from "@mantine/core";
@@ -15,27 +16,30 @@ import {
   IconChevronRight,
   IconSend2,
 } from "@tabler/icons-react";
-import { AudioRecorder } from "./AudioRecorder";
-import { ModelHookChat } from "./ModelHook";
 
-export function Onboarding({ setProcess }) {
-  const [what, setWhat] = useState("");
-  const [who, setWho] = useState("");
-  const [gender, setGender] = useState("");
+interface OnboardingProps {
+  setProcess: (process: string) => void;
+  what: string;
+  who: string;
+  gender: string;
+  setWhat: (what: string) => void;
+  setWho: (who: string) => void;
+  setGender: (gender: string) => void;
+}
+
+export function Onboarding({
+  setProcess,
+  what,
+  who,
+  gender,
+  setWhat,
+  setWho,
+  setGender,
+}: OnboardingProps) {
   const [page, setPage] = useState(0);
   const [nextAccessible, setNextAccessible] = useState(true);
   const [customSituation, setCustomSituation] = useState("");
   const [customPerson, setCustomPerson] = useState("");
-
-  const [fullRecording, setFullRecording] = useState("");
-  const [transcriptionToSend, setTranscriptionToSend] = useState("");
-  // const lastChangeTime = useRef(Date.now());
-
-  useEffect(() => {
-    // API call to openAI
-    console.log("transcriptionToSend", transcriptionToSend);
-    setTranscriptionToSend("");
-  }, [fullRecording]);
 
   useEffect(() => {
     if (customSituation !== "") {
@@ -60,16 +64,6 @@ export function Onboarding({ setProcess }) {
       setNextAccessible(page <= 2);
     }
   }, [page, what, who, gender]);
-
-  const call = ({}) => {
-    setProcess("call");
-    ModelHookChat({
-      conversation_history: [],
-      who: who,
-      gender: gender,
-      situation: what,
-    });
-  };
 
   const nextPageWhat = () => {
     console.log("NextPageWhat");
@@ -300,11 +294,16 @@ export function Onboarding({ setProcess }) {
             <Table.Td>{gender}</Table.Td>
           </Table.Tr>
         </Table>
-        <AudioRecorder
-          setFullRecording={setFullRecording}
-          setTranscriptionToSend={setTranscriptionToSend}
-          setProcess={setProcess}
-        />
+        <Button
+          onClick={() => setProcess("call")}
+          size="xl"
+          style={{ padding: "10px" }}
+          h={"100px"}
+          w={"100px"}
+          radius={"50%"}
+        >
+          Call me
+        </Button>
       </Stack>
     </div>
   );

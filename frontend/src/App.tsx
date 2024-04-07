@@ -1,33 +1,35 @@
 import "./App.css";
-import { useState, useEffect } from "react";
-import { AudioRecorder } from "./components/AudioRecorder";
+import { useState } from "react";
 import { Onboarding } from "./components/Onboarding";
-import { ModelHookChat } from "./components/ModelHook";
 import { Call } from "./components/Call";
 import { Button, Anchor } from "@mantine/core";
 
 function App() {
-  const [fullRecording, setFullRecording] = useState("");
-  const [transcriptionToSend, setTranscriptionToSend] = useState("");
+  const [what, setWhat] = useState("");
+  const [who, setWho] = useState("");
+  const [gender, setGender] = useState("");
   const [process, setProcess] = useState("onboarding");
   // const lastChangeTime = useRef(Date.now());
-
-  useEffect(() => {
-    // API call to openAI
-    console.log("transcriptionToSend", transcriptionToSend);
-    setTranscriptionToSend("");
-  }, [fullRecording]);
 
   return (
     <main>
       <div style={{ height: "100%" }}>
         {
           {
-            onboarding: <Onboarding setProcess={setProcess} />,
-            call: <Call />,
+            onboarding: (
+              <Onboarding
+                setProcess={setProcess}
+                what={what}
+                who={who}
+                gender={gender}
+                setWhat={setWhat}
+                setWho={setWho}
+                setGender={setGender}
+              />
+            ),
+            call: <Call what={what} who={who} gender={gender} />,
           }[process]
         }
-        {/* <Call /> */}
       </div>
       <footer>
         <Anchor href="tel:911" underline="never" c="white">
