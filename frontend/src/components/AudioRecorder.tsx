@@ -128,7 +128,7 @@ export function AudioRecorder({
   }
   return (
     <div>
-      <h2>Audio Recorder</h2>
+      <h2>Angel Shot</h2>
       <main>
         <div>
           <button onClick={() => startRecording(transcribeCallback)}>

@@ -1,17 +1,46 @@
 import { Chip } from "@mantine/core";
 import { useState } from "react";
+import { Stack } from '@mantine/core';
 
 export function Onboarding({}) {
-  const [chipAns, setChipAns] = useState("react");
+  const [value, setValue] = useState('react');
+  const [page, setPage] = useState(0);
+
+  const what_var = <Chip.Group multiple={false} value={value} onChange={setValue}>
+                <Chip value="Rideshare">Rideshare</Chip>
+                <Chip value="Walking">Walking</Chip>
+                <Chip value="Excuse">Excuse</Chip>
+              </Chip.Group> 
+
+  const who_var = <Chip.Group multiple={false} value={value} onChange={setValue}>
+                <Chip value="Parent">React</Chip>
+                <Chip value="Friend">Angular</Chip>
+                <Chip value="S_O">Svelte</Chip>
+                </Chip.Group> 
+
+  const gender_var = <Chip.Group multiple={false} value={value} onChange={setValue}>
+                <Chip value="M">React</Chip>
+                <Chip value="F">Angular</Chip>
+                </Chip.Group> 
+
+  function nextPage() {
+    setPage(page + 1);
+  }
+  function prevPage() {
+    setPage(page - 1);
+  }
+  
+
   return (
-    <div>
-      <Chip.Group multiple={false} value={chipAns} onChange={setChipAns}>
-        <Chip value="rideshare">Using rideshare</Chip>
-        <Chip value="walking">Walking alone</Chip>
-        <Chip value="emergency">Family Medical Emergency</Chip>
-        <Chip value="breakup">Friend breakup</Chip>
-        <Chip value="other">Other</Chip>
-      </Chip.Group>
-    </div>
+    <Stack
+      h={300}
+      bg="var(--mantine-color-body)"
+      align="stretch"
+      gap="lg"
+    >
+      {{0 : what_var,
+        1 : who_var,
+        2 : gender_var}[page]}
+    </Stack>
   );
 }
