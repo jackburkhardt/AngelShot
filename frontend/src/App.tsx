@@ -1,6 +1,7 @@
 import "./App.css";
 import { useState, useEffect, useRef } from "react";
 import { AudioRecorder } from "./components/AudioRecorder";
+import { Onboarding } from "./components/Onboarding";
 function App() {
   const [fullRecording, setFullRecording] = useState("");
   const [transcriptionToSend, setTranscriptionToSend] = useState("");
@@ -19,6 +20,7 @@ function App() {
         transcriptionToSend={transcriptionToSend}
         setTranscriptionToSend={setTranscriptionToSend}
       />
+      <Onboarding/>
     </>
   );
 }
