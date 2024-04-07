@@ -82,14 +82,8 @@ export function Onboarding({
   const what_var = (
     <div>
       <Title>What is your call about?</Title>
-      <Space h="xl" />
-      <Stack
-        h={300}
-        bg="var(--mantine-color-body)"
-        align="stretch"
-        gap="lg"
-        className="content"
-      >
+      <Space h="lg" />
+      <Stack h={300} align="stretch" gap="lg" className="content">
         <Chip.Group multiple={false} value={situation} onChange={setSituation}>
           <Chip
             className="chip"
@@ -169,13 +163,7 @@ export function Onboarding({
     <div>
       <Title>Who's calling you?</Title>
       <Space h="xl" />
-      <Stack
-        h={300}
-        bg="var(--mantine-color-body)"
-        align="stretch"
-        gap="lg"
-        className="content"
-      >
+      <Stack h={300} align="stretch" gap="lg" className="content">
         <Chip.Group multiple={false} value={who} onChange={setWho}>
           <Chip
             className="chip"
@@ -240,15 +228,9 @@ export function Onboarding({
 
   const gender_var = (
     <div>
-      <Title>What is their gender? *fix*</Title>
+      <Title>What is their gender?</Title>
       <Space h="xl" />
-      <Stack
-        h={300}
-        bg="var(--mantine-color-body)"
-        align="stretch"
-        gap="lg"
-        className="content"
-      >
+      <Stack h={300} align="stretch" gap="lg" className="content">
         <Chip.Group multiple={false} value={gender} onChange={setGender}>
           <Chip
             className="chip"
@@ -267,10 +249,10 @@ export function Onboarding({
             Female
           </Chip>
         </Chip.Group>
-        <Text c="main_blue.7" style={{fontSize:"12px"}}>  
-        Angel Shot™ acknowledges and affirms that gender identity
-          is expanive and diverse. At this time, however, we are limited to a 
-          binary set of voices for the purpose of this application.
+        <Text c="main_blue.7" style={{ fontSize: "13px" }}>
+          Angel Shot™ acknowledges and affirms that gender identity is expanive
+          and diverse. At this time, however, we are limited to a binary set of
+          voices for the purpose of this application.
         </Text>
       </Stack>
     </div>
@@ -280,13 +262,7 @@ export function Onboarding({
     <div>
       <Title>Ready to call?</Title>
       <Space h="xl" />
-      <Stack
-        h={300}
-        bg="var(--mantine-color-body)"
-        align="stretch"
-        gap="lg"
-        className="content"
-      >
+      <Stack h={230} align="stretch" gap="lg" className="content">
         <Table>
           <Table.Tr></Table.Tr>
           <Table.Tr>
@@ -302,21 +278,24 @@ export function Onboarding({
             <Table.Td>{gender}</Table.Td>
           </Table.Tr>
         </Table>
-        <Text>The voice you are hearing is generated using AI. Your data is not stored.</Text>
-        <Button
-          onClick={() => setProcess("call")}
-          size="xl"
-          style={{ padding: "1px", fontSize: "28px", borderWidth: "2.5px"}}
-          h={"150px"}
-          w={"150px"}
-          radius={"50%"}
-          variant="outline"
-          justify="center"
-          m="auto"
-        >
-          Call me
-        </Button>
+        <Text c="main_blue.7" style={{ fontSize: "13px" }}>
+          The voice you are hearing is generated using AI. Your data is not
+          stored.
+        </Text>
       </Stack>
+      <Button
+        onClick={() => setProcess("call")}
+        size="xl"
+        style={{ padding: "1px", fontSize: "28px", borderWidth: "2.5px" }}
+        w={"150px"}
+        h={"150px"}
+        radius={"50%"}
+        variant="outline"
+        justify="center"
+        m="auto"
+      >
+        Call me
+      </Button>
     </div>
   );
 

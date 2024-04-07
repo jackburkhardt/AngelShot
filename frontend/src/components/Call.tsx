@@ -23,7 +23,7 @@ export function Call({ situation, who, gender }: CallProps) {
     conversation_history: [],
     who: who,
     situation: situation,
-    gender: gender
+    gender: gender,
   });
 
   let microphoneStream: MicrophoneStream | undefined = undefined; // CHANGE TYPE WHEN WE KNOW WHAT IT IS
@@ -37,11 +37,14 @@ export function Call({ situation, who, gender }: CallProps) {
       ...conversation,
       conversation_history: [
         ...conversation.conversation_history,
-        {role: "system", content: `Pretend you are having a conversation with the user over the phone. 
+        {
+          role: "system",
+          content: `Pretend you are having a conversation with the user over the phone. 
               Only write exactly what you would say. 
               Speak in an informal, conversational tone. 
               Limit your responses to be no more than 2 sentences. Continue to ask followup questions to continue the conversation.  
-              You are my ${gender} ${who} with my location.  Here is the situation: ${situation}`},
+              You are my ${gender} ${who} with my location.  Here is the situation: ${situation}`,
+        },
       ],
     });
     //ModelChat(conversation, setConversation);
@@ -56,7 +59,10 @@ export function Call({ situation, who, gender }: CallProps) {
     if (fullRecording !== "") {
       setConversation({
         ...conversation,
-        conversation_history: [...conversation.conversation_history, { role: "user", content: transcriptionToSend }],
+        conversation_history: [
+          ...conversation.conversation_history,
+          { role: "user", content: transcriptionToSend },
+        ],
       });
       ModelChat(conversation, setConversation, transcriptionToSend);
     }
@@ -176,8 +182,6 @@ export function Call({ situation, who, gender }: CallProps) {
       <Button size="lg" color="red" onClick={() => window.location.reload()}>
         Hang up
       </Button>
-      <div>{transcriptionToSend}</div>
-      <div>{fullRecording}</div>
     </Stack>
   );
 }

@@ -4,6 +4,12 @@
   padding: 1.5rem;
   text-align: center;
   height: 100dvh;
+  background-color: #151718;
+}
+
+.content {
+  padding: 15px;
+  background-color: #151718;
 }
 
 .chip {
