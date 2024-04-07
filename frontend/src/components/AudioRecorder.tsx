@@ -10,14 +10,14 @@ import { Button } from "@mantine/core";
 
 interface AudioRecorderProps {
   setFullRecording: (transcription: string) => void;
-  transcriptionToSend: string;
   setTranscriptionToSend: (transcription: string) => void;
+  setProcess: (process: string) => void;
 }
 
 export function AudioRecorder({
   setFullRecording: setTranscription,
-  transcriptionToSend,
   setTranscriptionToSend,
+  setProcess,
 }: AudioRecorderProps) {
   let microphoneStream: MicrophoneStream | undefined = undefined; // CHANGE TYPE WHEN WE KNOW WHAT IT IS
   const language: LanguageCode = "en-US";
@@ -96,20 +96,6 @@ export function AudioRecorder({
         callback(newTranscript + " ");
       }
     }
-    // this is an alternative way to write the above code
-    // for await (const evt of data.TranscriptResultStream) {
-    //   const results = evt.TranscriptEvent.Transcript.Results;
-    //   for (const result of results) {
-    //     if (result.IsPartial === false) {
-    //       const noOfResults = result.Alternatives[0].Items.length;
-    //       for (let i = 0; i < noOfResults; i++) {
-    //         const newTranscript = `${result.Alternatives[0].Items[i].Content} `;
-    //         console.log(newTranscript);
-    //         callback(newTranscript + " ");
-    //       }
-    //     }
-    //   }
-    // }
   }
 
   function stopRecording() {
@@ -141,8 +127,13 @@ export function AudioRecorder({
     await startStreaming(language, callback);
   }
   function transcribeCallback(text: string) {
-    setTranscription((prevTranscription) => prevTranscription + text);
     setTranscriptionToSend((prevTranscription) => prevTranscription + text);
+    setFullRecording((prevFullRecording) => prevFullRecording + text);
+  }
+
+  function startCall() {
+    startRecording(transcribeCallback);
+    setProcess("call");
   }
 
   return (
@@ -150,9 +141,9 @@ export function AudioRecorder({
       <h2></h2>
       <div>
         <Button
-          onClick={() => startRecording(transcribeCallback)}
+          onClick={startCall}
           size="xl"
-          style={{padding:"10px"}}
+          style={{ padding: "10px" }}
           h={"100px"}
           w={"100px"}
           radius={"50%"}

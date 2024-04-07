@@ -21,18 +21,18 @@ function App() {
   return (
     <main>
       <div style={{ height: "100%" }}>
-      {/* {{
-        "onboarding": <Onboarding setProcess={setProcess}/>,
-        "call": <></>
-      }[process]} */}
-      <Call />
-    </div>
+        {
+          {
+            onboarding: <Onboarding setProcess={setProcess} />,
+            call: <Call />,
+          }[process]
+        }
+        {/* <Call /> */}
+      </div>
       <footer>
-        <Button color="red">
-          <Anchor href="tel:911" underline="never" c="white">
-            Call 911
-          </Anchor>
-        </Button>
+        <Anchor href="tel:911" underline="never" c="white">
+          <Button color="red">SOS</Button>
+        </Anchor>
       </footer>
     </main>
   );

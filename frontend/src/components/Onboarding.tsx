@@ -18,7 +18,7 @@ import {
 import { AudioRecorder } from "./AudioRecorder";
 import { ModelHookChat } from "./ModelHook";
 
-export function Onboarding({setProcess}) {
+export function Onboarding({ setProcess }) {
   const [what, setWhat] = useState("");
   const [who, setWho] = useState("");
   const [gender, setGender] = useState("");
@@ -39,13 +39,13 @@ export function Onboarding({setProcess}) {
 
   useEffect(() => {
     if (customSituation !== "") {
-        setWhat(customSituation);
+      setWhat(customSituation);
     }
   }, [customSituation]);
 
   useEffect(() => {
     if (customPerson !== "") {
-        setWho(customPerson);
+      setWho(customPerson);
     }
   }, [customPerson]);
 
@@ -62,7 +62,7 @@ export function Onboarding({setProcess}) {
   }, [page, what, who, gender]);
 
   const call = ({}) => {
-    setProcess("call")
+    setProcess("call");
     ModelHookChat({
       conversation_history: [],
       who: who,
@@ -302,8 +302,8 @@ export function Onboarding({setProcess}) {
         </Table>
         <AudioRecorder
           setFullRecording={setFullRecording}
-          transcriptionToSend={transcriptionToSend}
           setTranscriptionToSend={setTranscriptionToSend}
+          setProcess={setProcess}
         />
       </Stack>
     </div>
