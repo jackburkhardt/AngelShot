@@ -8,19 +8,20 @@ import { Buffer } from "buffer";
 import { AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY } from "../aws";
 
 interface AudioRecorderProps {
-  transcription: string;
-  setTranscription: (transcription: string) => void;
+  setFullRecording: (transcription: string) => void;
+  transcriptionToSend: string;
+  setTranscriptionToSend: (transcription: string) => void;
 }
 
 export function AudioRecorder({
-  transcription,
-  setTranscription,
+  setFullRecording: setTranscription,
+  transcriptionToSend,
+  setTranscriptionToSend,
 }: AudioRecorderProps) {
   let microphoneStream: MicrophoneStream | undefined = undefined; // CHANGE TYPE WHEN WE KNOW WHAT IT IS
   const language: LanguageCode = "en-US";
   const SAMPLE_RATE = 44100; // this is the sample rate in hertz
   let transcribeClient: TranscribeStreamingClient | undefined = undefined; // CHANGE TYPE WHEN WE KNOW WHAT IT IS
-
   async function createMicrophoneStream() {
     /* 
     allows us to capture audio from the user’s microphone via getUserMedia
@@ -48,7 +49,7 @@ export function AudioRecorder({
     });
   }
 
-  function encodePCMChunk(chunk: MicrophoneStream) {
+  function encodePCMChunk(chunk: Buffer) {
     // CHANGE CHUNK TYPE WHEN WE KNOW WHAT IT IS
     /* 
     convert the audio chunk to PCM format.
@@ -67,15 +68,13 @@ export function AudioRecorder({
   }
 
   async function* getAudioStream() {
-    if (microphoneStream) {
-      for await (const chunk of microphoneStream) {
-        if (chunk.length <= SAMPLE_RATE) {
-          yield {
-            AudioEvent: {
-              AudioChunk: encodePCMChunk(chunk),
-            },
-          };
-        }
+    for await (const chunk of microphoneStream as unknown as Iterable<Buffer>) {
+      if (chunk.length <= SAMPLE_RATE) {
+        yield {
+          AudioEvent: {
+            AudioChunk: encodePCMChunk(chunk),
+          },
+        };
       }
     }
   }
@@ -87,26 +86,45 @@ export function AudioRecorder({
       MediaSampleRateHertz: SAMPLE_RATE,
       AudioStream: getAudioStream(),
     });
-    if (transcribeClient) {
-      const data = await transcribeClient.send(command);
-      for await (const event of data.TranscriptResultStream) {
-        const results = event.TranscriptEvent.Transcript.Results;
-        if (results.length && !results[0]?.IsPartial) {
-          const newTranscript = results[0].Alternatives[0].Transcript;
-          console.log(newTranscript);
-          callback(newTranscript + " ");
-        }
+    const data = await transcribeClient.send(command);
+    for await (const event of data.TranscriptResultStream) {
+      const results = event.TranscriptEvent.Transcript.Results;
+      if (results.length && !results[0]?.IsPartial) {
+        const newTranscript = results[0].Alternatives[0].Transcript;
+        // console.log(newTranscript);
+        callback(newTranscript + " ");
       }
     }
+    // this is an alternative way to write the above code
+    // for await (const evt of data.TranscriptResultStream) {
+    //   const results = evt.TranscriptEvent.Transcript.Results;
+    //   for (const result of results) {
+    //     if (result.IsPartial === false) {
+    //       const noOfResults = result.Alternatives[0].Items.length;
+    //       for (let i = 0; i < noOfResults; i++) {
+    //         const newTranscript = `${result.Alternatives[0].Items[i].Content} `;
+    //         console.log(newTranscript);
+    //         callback(newTranscript + " ");
+    //       }
+    //     }
+    //   }
+    // }
   }
 
   function stopRecording() {
+    console.log(microphoneStream, transcribeClient);
     if (microphoneStream) {
+      console.log("stop microphoneStream");
       microphoneStream.stop();
       microphoneStream.destroy();
       microphoneStream = undefined;
-      setTranscription("");
     }
+    if (transcribeClient) {
+      console.log("stop transcribeClient");
+      transcribeClient.destroy();
+      transcribeClient = undefined;
+    }
+    setTranscription("");
   }
 
   async function startRecording(callback: any) {
@@ -114,7 +132,6 @@ export function AudioRecorder({
       alert("Set AWS env variables first.");
       return false;
     }
-
     if (microphoneStream || transcribeClient) {
       stopRecording();
     }
@@ -122,22 +139,19 @@ export function AudioRecorder({
     createMicrophoneStream();
     await startStreaming(language, callback);
   }
-
   function transcribeCallback(text: string) {
-    setTranscription((prevTranscription: string) => prevTranscription + text);
+    setTranscription((prevTranscription) => prevTranscription + text);
+    setTranscriptionToSend((prevTranscription) => prevTranscription + text);
   }
+
   return (
     <div>
-      <h2>Angel Shot</h2>
-      <main>
-        <div>
-          <button onClick={() => startRecording(transcribeCallback)}>
-            Record
-          </button>
-          <button onClick={stopRecording}>Stop</button>
-          <p>{transcription}</p>
-        </div>
-      </main>
+      <h2></h2>
+      <div>
+        <button onClick={() => startRecording(transcribeCallback)}>
+          Record
+        </button>
+      </div>
     </div>
   );
 }
