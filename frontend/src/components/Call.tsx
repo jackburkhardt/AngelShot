@@ -58,7 +58,7 @@ export function Call({ situation, who, gender }: CallProps) {
         ...conversation,
         conversation_history: [...conversation.conversation_history, { role: "user", content: transcriptionToSend }],
       });
-      ModelChat(conversation, setConversation);
+      ModelChat(conversation, setConversation, transcriptionToSend);
     }
     setTranscriptionToSend("");
   }, [fullRecording]);

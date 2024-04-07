@@ -10,6 +10,7 @@ import {
   Button,
   Title,
   Table,
+  Text,
 } from "@mantine/core";
 import {
   IconChevronLeft,
@@ -95,6 +96,7 @@ export function Onboarding({
             onClick={() => nextPageWhat()}
             size="xl"
             value="I am in a rideshare on my way home."
+            radius={"300px"}
           >
             Using Rideshare
           </Chip>
@@ -103,6 +105,7 @@ export function Onboarding({
             onClick={() => nextPageWhat()}
             size="xl"
             value="I am walking home alone."
+            style={{ width: "300px" }}
           >
             Walking Alone
           </Chip>
@@ -264,6 +267,11 @@ export function Onboarding({
             Female
           </Chip>
         </Chip.Group>
+        <Text c="main_blue.7" style={{fontSize:"12px"}}>  
+        Angel Shot™ acknowledges and affirms that gender identity
+          is expanive and diverse. At this time, however, we are limited to a 
+          binary set of voices for the purpose of this application.
+        </Text>
       </Stack>
     </div>
   );
@@ -294,13 +302,17 @@ export function Onboarding({
             <Table.Td>{gender}</Table.Td>
           </Table.Tr>
         </Table>
+        <Text>The voice you are hearing is generated using AI. Your data is not stored.</Text>
         <Button
           onClick={() => setProcess("call")}
           size="xl"
-          style={{ padding: "10px" }}
-          h={"100px"}
-          w={"100px"}
+          style={{ padding: "1px", fontSize: "28px", borderWidth: "2.5px"}}
+          h={"150px"}
+          w={"150px"}
           radius={"50%"}
+          variant="outline"
+          justify="center"
+          m="auto"
         >
           Call me
         </Button>

@@ -7,8 +7,12 @@
 }
 
 .chip {
-  width: 250px;
+  width: 300px;
   margin: 0 auto 0 auto;
+}
+
+.chip * {
+  width: 100%;
 }
 
 main {
