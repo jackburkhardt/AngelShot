@@ -7,9 +7,9 @@ import '@mantine/core/styles.css';
 
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
+  //<React.StrictMode>
     <MantineProvider theme={{ primaryColor: "green" }}>
       <App />
     </MantineProvider>
-  </React.StrictMode>
+  //</React.StrictMode>
 );
