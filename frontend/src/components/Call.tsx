@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   TranscribeStreamingClient,
   StartStreamTranscriptionCommand,
@@ -126,10 +126,13 @@ export function Call({ situation, who, gender }: CallProps) {
       MediaSampleRateHertz: SAMPLE_RATE,
       AudioStream: getAudioStream(),
     });
-    const data = await transcribeClient.send(command);
-    for await (const event of data.TranscriptResultStream) {
-      const results = event.TranscriptEvent.Transcript.Results;
-      if (results.length && !results[0]?.IsPartial) {
+    const data = await transcribeClient!.send(command);
+    for await (const event of data.TranscriptResultStream!) {
+      const results = event.TranscriptEvent!.Transcript!.Results;
+      if (results && results!.length && !results[0].IsPartial) {
+        if (!results[0].Alternatives) {
+          continue;
+        }
         const newTranscript = results[0].Alternatives[0].Transcript;
         // console.log(newTranscript);
         callback(newTranscript + " ");
@@ -142,7 +145,6 @@ export function Call({ situation, who, gender }: CallProps) {
     if (microphoneStream) {
       console.log("stop microphoneStream");
       microphoneStream.stop();
-      microphoneStream.destroy();
       microphoneStream = undefined;
     }
     if (transcribeClient) {
