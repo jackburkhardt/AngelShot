@@ -8,6 +8,7 @@ import {
   Space,
   Text,
   Title,
+  Table,
 } from "@mantine/core";
 import {
   IconChevronLeft,
@@ -178,6 +179,8 @@ export function Onboarding({}) {
     </div>
   );
 
+
+
   const make_call = (<div>
     <Title>Ready to call?</Title>
       <Space h="xl" />
@@ -188,9 +191,24 @@ export function Onboarding({}) {
         gap="lg"
         className="content"
       >
-        <Text>Calling about: {what}</Text>
-        <Text>With: {who}</Text>
-        <Text>Gender: {gender}</Text>
+        <Table>
+        <Table.Tr>
+
+        </Table.Tr>
+            <Table.Tr>
+                <Table.Th>Calling about</Table.Th>
+                <Table.Td>{what}</Table.Td>
+            </Table.Tr>
+            <Table.Tr>
+                <Table.Th>With</Table.Th>
+                <Table.Td>{who}</Table.Td>
+            </Table.Tr>
+            <Table.Tr>
+                <Table.Th>Gender</Table.Th>
+                <Table.Td>{gender}</Table.Td>
+            </Table.Tr>
+        </Table>
+
       </Stack>
   </div>);
 
