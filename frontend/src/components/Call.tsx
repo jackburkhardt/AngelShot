@@ -6,7 +6,6 @@ import {
 } from "@aws-sdk/client-transcribe-streaming";
 import MicrophoneStream from "microphone-stream";
 import { Buffer } from "buffer";
-import { AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY } from "../aws";
 import { Stack, Button } from "@mantine/core";
 import { ModelChat, ModelConfig } from "./Model";
 
@@ -82,10 +81,10 @@ export function Call({ situation, who, gender }: CallProps) {
     create a Transcribe client so that we can send the stream to Amazon
   */
     transcribeClient = new TranscribeStreamingClient({
-      region: AWS_REGION,
+      region: import.meta.env.VITE_AWS_REGION,
       credentials: {
-        accessKeyId: AWS_ACCESS_KEY_ID,
-        secretAccessKey: AWS_SECRET_ACCESS_KEY,
+        accessKeyId: import.meta.env.VITE_AWS_ACCESS_KEY_ID,
+        secretAccessKey: import.meta.env.VITE_AWS_SECRET_ACCESS_KEY,
       },
     });
   }
@@ -155,7 +154,7 @@ export function Call({ situation, who, gender }: CallProps) {
   }
 
   async function startRecording(callback: any) {
-    if (!AWS_REGION || !AWS_ACCESS_KEY_ID || !AWS_SECRET_ACCESS_KEY) {
+    if (!import.meta.env.VITE_AWS_REGION || !import.meta.env.VITE_AWS_ACCESS_KEY_ID || !import.meta.env.VITE_AWS_SECRET_ACCESS_KEY) {
       alert("Set AWS env variables first.");
       return false;
     }

@@ -1,6 +1,5 @@
 import OpenAI from 'openai';
 import { ChatCompletionMessageParam } from 'openai/resources/index.mjs';
-import { OPENAI_API_KEY } from '../aws';
 
 export interface ModelConfig {
     conversation_history: ChatCompletionMessageParam[];
@@ -10,7 +9,7 @@ export interface ModelConfig {
 }
 
 const openai = new OpenAI({
-    apiKey: OPENAI_API_KEY,
+    apiKey: import.meta.env.VITE_OPENAI_API_KEY,
     dangerouslyAllowBrowser: true     
 });
 
