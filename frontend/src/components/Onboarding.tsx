@@ -18,7 +18,7 @@ import {
 import { AudioRecorder } from "./AudioRecorder";
 import { ModelHookChat } from "./ModelHook";
 
-export function Onboarding({}) {
+export function Onboarding({setProcess}) {
   const [what, setWhat] = useState("");
   const [who, setWho] = useState("");
   const [gender, setGender] = useState("");
@@ -62,6 +62,7 @@ export function Onboarding({}) {
   }, [page, what, who, gender]);
 
   const call = ({}) => {
+    setProcess("call")
     ModelHookChat({
       conversation_history: [],
       who: who,
