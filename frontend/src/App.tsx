@@ -33,14 +33,9 @@ function App() {
       </div>
       <footer>
         <Anchor href="tel:911" underline="never" c="white">
-          <Button 
-            w="300px" 
-            h="50px"
-            color="red" 
-            style={{fontSize:"15px"}}
-            >
-              SOS
-            </Button>
+          <Button w="300px" h="50px" color="red" style={{ fontSize: "15px" }}>
+            SOS
+          </Button>
         </Anchor>
       </footer>
     </main>
