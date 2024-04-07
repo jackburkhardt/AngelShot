@@ -37,6 +37,7 @@ export function Onboarding({}) {
       bg="var(--mantine-color-body)"
       align="stretch"
       gap="lg"
+      className="content"
     >
       {{0 : what_var,
         1 : who_var,

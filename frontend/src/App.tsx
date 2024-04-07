@@ -29,7 +29,7 @@ function App() {
         setTranscriptionToSend={setTranscriptionToSend}
       />
       <Onboarding />
-    </>
+    </div>
   );
 }
 

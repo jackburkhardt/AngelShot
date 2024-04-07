@@ -5,3 +5,8 @@
   text-align: center;
   height: 100dvh;
 }
+
+.content * {
+  width: 250px;
+  margin: 0 auto 0 auto;
+}
