@@ -94,7 +94,7 @@ export function Onboarding({
             className="chip"
             onClick={() => nextPageWhat()}
             size="xl"
-            value="Using Rideshare"
+            value="I am in a rideshare on my way home."
           >
             Using Rideshare
           </Chip>
@@ -102,7 +102,7 @@ export function Onboarding({
             className="chip"
             onClick={() => nextPageWhat()}
             size="xl"
-            value="Walking Alone"
+            value="I am walking home alone."
           >
             Walking Alone
           </Chip>
@@ -110,7 +110,7 @@ export function Onboarding({
             className="chip"
             onClick={() => nextPageWhat()}
             size="xl"
-            value="Family Emergency"
+            value="My family member had a medical emergency."
           >
             Family Emergency
           </Chip>
@@ -118,7 +118,7 @@ export function Onboarding({
             className="chip"
             onClick={() => nextPageWhat()}
             size="xl"
-            value="Friend Breakup"
+            value="My friend went through a breakup."
           >
             Friend breakup
           </Chip>
