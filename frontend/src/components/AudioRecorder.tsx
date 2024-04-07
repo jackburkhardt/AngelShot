@@ -146,16 +146,12 @@ export function AudioRecorder({
 
   return (
     <div>
-      <h2>Audio Recorder</h2>
-      <main>
-        <div>
-          <button onClick={() => startRecording(transcribeCallback)}>
-            Record
-          </button>
-          <button onClick={() => stopRecording()}>Stop</button>
-          <p>{transcriptionToSend}</p>
-        </div>
-      </main>
+      <h2></h2>
+      <div>
+        <button onClick={() => startRecording(transcribeCallback)}>
+          Record
+        </button>
+      </div>
     </div>
   );
 }

@@ -20,7 +20,7 @@ function App() {
         transcriptionToSend={transcriptionToSend}
         setTranscriptionToSend={setTranscriptionToSend}
       />
-      <Onboarding/>
+      <Onboarding />
     </>
   );
 }
