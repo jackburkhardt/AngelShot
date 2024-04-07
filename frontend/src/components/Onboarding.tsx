@@ -228,7 +228,7 @@ export function Onboarding({
 
   const gender_var = (
     <div>
-      <Title>What is their tone?</Title>
+      <Title>What is their gender?</Title>
       <Space h="xl" />
       <Stack h={300} align="stretch" gap="lg" className="content">
         <Chip.Group multiple={false} value={gender} onChange={setGender}>
@@ -238,7 +238,7 @@ export function Onboarding({
             size="xl"
             value="Male"
           >
-            Masculine
+            Male
           </Chip>
           <Chip
             className="chip"
@@ -246,7 +246,7 @@ export function Onboarding({
             size="xl"
             value="Female"
           >
-            Feminine
+            Female
           </Chip>
         </Chip.Group>
         <Text c="main_blue.7" style={{ fontSize: "13px" }}>
