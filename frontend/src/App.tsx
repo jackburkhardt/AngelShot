@@ -1,4 +1,4 @@
-import "./App.css";
+import "././App.css";
 import { useState } from "react";
 import { Onboarding } from "./components/Onboarding";
 import { Call } from "./components/Call";
@@ -33,7 +33,14 @@ function App() {
       </div>
       <footer>
         <Anchor href="tel:911" underline="never" c="white">
-          <Button color="red">SOS</Button>
+          <Button 
+            w="300px" 
+            h="50px"
+            color="red" 
+            style={{fontSize:"15px"}}
+            >
+              SOS
+            </Button>
         </Anchor>
       </footer>
     </main>
