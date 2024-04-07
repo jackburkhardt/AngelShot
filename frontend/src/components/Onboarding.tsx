@@ -10,6 +10,7 @@ import {
   Button,
   Title,
   Table,
+  Text,
 } from "@mantine/core";
 import {
   IconChevronLeft,
@@ -294,6 +295,7 @@ export function Onboarding({
             <Table.Td>{gender}</Table.Td>
           </Table.Tr>
         </Table>
+        <Text>The voice you are hearing is generated using AI. Your data is not stored.</Text>
         <Button
           onClick={() => setProcess("call")}
           size="xl"

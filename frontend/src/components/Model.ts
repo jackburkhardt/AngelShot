@@ -14,13 +14,13 @@ const openai = new OpenAI({
     dangerouslyAllowBrowser: true     
 });
 
-export async function ModelChat(config: ModelConfig, setConversation: (config: ModelConfig) => void) {
+export async function ModelChat(config: ModelConfig, setConversation: (config: ModelConfig) => void, transcriptionToSend: string) {
 
 
     const response = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
         max_tokens: 100,
-        messages: config.conversation_history,
+        messages: [...config.conversation_history, { role: "user", content: transcriptionToSend }]
     });
 
     if (response.choices.length === 0) {
@@ -34,7 +34,7 @@ export async function ModelChat(config: ModelConfig, setConversation: (config: M
 
     setConversation({
         ...config,
-        conversation_history: [...config.conversation_history, response.choices[0].message]
+        conversation_history: [...config.conversation_history, { role: "user", content: transcriptionToSend }, response.choices[0].message]
     })
     
     resolve(null);
