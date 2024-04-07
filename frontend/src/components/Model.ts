@@ -59,7 +59,7 @@ export async function ModelTTS(config: ModelConfig, last_msg_text: string) {
         voice: config.gender === "Male" ? "onyx" : "alloy"
     });
 
-    var response_blob = await response.blob();
+    const response_blob = await response.blob();
 
     const blob = new Blob([response_blob], { type: "audio/mp3" });
     const url = URL.createObjectURL(blob);
