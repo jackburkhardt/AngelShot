@@ -8,9 +8,9 @@ import '@mantine/core/styles.css';
 
 const theme = createTheme({
   autoContrast: true,
-  luminanceThreshold: 0.31,
+  luminanceThreshold: 1,
   colors: {
-    myColor: [
+    main_blue: [
       '#deffff',
       '#cafeff',
       '#99fbff',
@@ -23,7 +23,7 @@ const theme = createTheme({
       '#00a8b0'
     ]
   },
-  primaryColor: 'myColor',
+  primaryColor: 'main_blue',
   primaryShade: 7,
 });
 
