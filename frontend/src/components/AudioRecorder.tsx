@@ -15,7 +15,7 @@ interface AudioRecorderProps {
 }
 
 export function AudioRecorder({
-  setFullRecording: setTranscription,
+  setFullRecording: setFullRecording,
   setTranscriptionToSend,
   setProcess,
 }: AudioRecorderProps) {
