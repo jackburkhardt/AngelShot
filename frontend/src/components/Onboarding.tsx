@@ -15,8 +15,9 @@ import {
   IconChevronRight,
   IconSend2,
 } from "@tabler/icons-react";
-import mainLogo from "./logo.png";
-// import mainLogo from "./logo.png";
+import { AudioRecorder } from "./AudioRecorder";
+import { ModelHookChat } from "./ModelHook";
+
 
 export function Onboarding({}) {
   const [what, setWhat] = useState("");
@@ -26,6 +27,16 @@ export function Onboarding({}) {
   const [nextAccessible, setNextAccessible] = useState(true);
   const [customSituation, setCustomSituation] = useState("");
   const [customPerson, setCustomPerson] = useState("");
+
+  const [fullRecording, setFullRecording] = useState("");
+  const [transcriptionToSend, setTranscriptionToSend] = useState("");
+  // const lastChangeTime = useRef(Date.now());
+
+  useEffect(() => {
+    // API call to openAI
+    console.log("transcriptionToSend", transcriptionToSend);
+    setTranscriptionToSend("");
+  }, [fullRecording]);
 
   useEffect(() => {
     setWhat(customSituation);
@@ -47,6 +58,15 @@ export function Onboarding({}) {
     }
   }, [page, what, who, gender]);
 
+  const call = ({}) => {
+    ModelHookChat({
+        conversation_history: [],
+        who: who,
+        gender: gender,
+        situation: what,
+      });
+  };
+
   const what_var = (
     <div>
       <Title>What is your call about?</Title>
@@ -59,16 +79,36 @@ export function Onboarding({}) {
         className="content"
       >
         <Chip.Group multiple={false} value={what} onChange={setWhat}>
-          <Chip className="chip" onClick={() => nextPage()} size="xl" value="rideshare">
+          <Chip
+            className="chip"
+            onClick={() => nextPage()}
+            size="xl"
+            value="Using Rideshare"
+          >
             Using Rideshare
           </Chip>
-          <Chip className="chip" onClick={() => nextPage()} size="xl" value="walking">
+          <Chip
+            className="chip"
+            onClick={() => nextPage()}
+            size="xl"
+            value="Walking Alone"
+          >
             Walking Alone
           </Chip>
-          <Chip className="chip" onClick={() => nextPage()} size="xl" value="emergency">
+          <Chip
+            className="chip"
+            onClick={() => nextPage()}
+            size="xl"
+            value="Family Emergency"
+          >
             Family Emergency
           </Chip>
-          <Chip className="chip" onClick={() => nextPage()} size="xl" value="breakup">
+          <Chip
+            className="chip"
+            onClick={() => nextPage()}
+            size="xl"
+            value="Friend Breakup"
+          >
             Friend breakup
           </Chip>
           {/* <Chip size="xl" value="other">
@@ -81,23 +121,30 @@ export function Onboarding({}) {
           size="lg"
           onChange={(event) => setCustomSituation(event.currentTarget.value)}
           rightSection={
-            customSituation===""
-            ?
-            <ActionIcon
-            disabled
-              onClick={() => nextPage()}
-              size="lg"
-              aria-label="backward"
-            >
-              <IconSend2 style={{ width: "70%", height: "70%" }} stroke={1.5} />
-            </ActionIcon> :
-            <ActionIcon
-            onClick={() => nextPage()}
-            size="lg"
-            aria-label="backward"
-          >
-            <IconSend2 style={{ width: "70%", height: "70%" }} stroke={1.5} />
-          </ActionIcon>
+            customSituation === "" ? (
+              <ActionIcon
+                disabled
+                onClick={() => nextPage()}
+                size="lg"
+                aria-label="backward"
+              >
+                <IconSend2
+                  style={{ width: "70%", height: "70%" }}
+                  stroke={1.5}
+                />
+              </ActionIcon>
+            ) : (
+              <ActionIcon
+                onClick={() => nextPage()}
+                size="lg"
+                aria-label="backward"
+              >
+                <IconSend2
+                  style={{ width: "70%", height: "70%" }}
+                  stroke={1.5}
+                />
+              </ActionIcon>
+            )
           }
         />
       </Stack>
@@ -116,13 +163,28 @@ export function Onboarding({}) {
         className="content"
       >
         <Chip.Group multiple={false} value={who} onChange={setWho}>
-          <Chip className="chip" onClick={() => nextPage()} size="xl" value="Parent">
+          <Chip
+            className="chip"
+            onClick={() => nextPage()}
+            size="xl"
+            value="Parent"
+          >
             Parent
           </Chip>
-          <Chip className="chip" onClick={() => nextPage()} size="xl" value="Friend">
+          <Chip
+            className="chip"
+            onClick={() => nextPage()}
+            size="xl"
+            value="Friend"
+          >
             Friend
           </Chip>
-          <Chip className="chip" onClick={() => nextPage()} size="xl" value="Significant Other">
+          <Chip
+            className="chip"
+            onClick={() => nextPage()}
+            size="xl"
+            value="Significant Other"
+          >
             Significant Other
           </Chip>
         </Chip.Group>
@@ -132,24 +194,30 @@ export function Onboarding({}) {
           size="lg"
           onChange={(event) => setCustomPerson(event.currentTarget.value)}
           rightSection={
-            customPerson===""
-            ?
-            <ActionIcon
-              onClick={() => nextPage()}
-              disabled
-              size="lg"
-              aria-label="backward"
-            >
-              <IconSend2 style={{ width: "70%", height: "70%" }} stroke={1.5} />
-            </ActionIcon>
-            :
-            <ActionIcon
-            onClick={() => nextPage()}
-            size="lg"
-            aria-label="backward"
-          >
-            <IconSend2 style={{ width: "70%", height: "70%" }} stroke={1.5} />
-          </ActionIcon>
+            customPerson === "" ? (
+              <ActionIcon
+                onClick={() => nextPage()}
+                disabled
+                size="lg"
+                aria-label="backward"
+              >
+                <IconSend2
+                  style={{ width: "70%", height: "70%" }}
+                  stroke={1.5}
+                />
+              </ActionIcon>
+            ) : (
+              <ActionIcon
+                onClick={() => nextPage()}
+                size="lg"
+                aria-label="backward"
+              >
+                <IconSend2
+                  style={{ width: "70%", height: "70%" }}
+                  stroke={1.5}
+                />
+              </ActionIcon>
+            )
           }
         />
       </Stack>
@@ -168,10 +236,20 @@ export function Onboarding({}) {
         className="content"
       >
         <Chip.Group multiple={false} value={gender} onChange={setGender}>
-          <Chip className="chip" onClick={() => nextPage()} size="xl" value="Male">
+          <Chip
+            className="chip"
+            onClick={() => nextPage()}
+            size="xl"
+            value="Male"
+          >
             Male
           </Chip>
-          <Chip className="chip" onClick={() => nextPage()} size="xl" value="Female">
+          <Chip
+            className="chip"
+            onClick={() => nextPage()}
+            size="xl"
+            value="Female"
+          >
             Female
           </Chip>
         </Chip.Group>
@@ -179,10 +257,9 @@ export function Onboarding({}) {
     </div>
   );
 
-
-
-  const make_call = (<div>
-    <Title>Ready to call?</Title>
+  const make_call = (
+    <div>
+      <Title>Ready to call?</Title>
       <Space h="xl" />
       <Stack
         h={300}
@@ -192,25 +269,28 @@ export function Onboarding({}) {
         className="content"
       >
         <Table>
-        <Table.Tr>
-
-        </Table.Tr>
-            <Table.Tr>
-                <Table.Th>Calling about</Table.Th>
-                <Table.Td>{what}</Table.Td>
-            </Table.Tr>
-            <Table.Tr>
-                <Table.Th>With</Table.Th>
-                <Table.Td>{who}</Table.Td>
-            </Table.Tr>
-            <Table.Tr>
-                <Table.Th>Gender</Table.Th>
-                <Table.Td>{gender}</Table.Td>
-            </Table.Tr>
+          <Table.Tr></Table.Tr>
+          <Table.Tr>
+            <Table.Th>Calling about</Table.Th>
+            <Table.Td>{what}</Table.Td>
+          </Table.Tr>
+          <Table.Tr>
+            <Table.Th>With</Table.Th>
+            <Table.Td>{who}</Table.Td>
+          </Table.Tr>
+          <Table.Tr>
+            <Table.Th>Gender</Table.Th>
+            <Table.Td>{gender}</Table.Td>
+          </Table.Tr>
         </Table>
-
+        <AudioRecorder
+          setFullRecording={setFullRecording}
+          transcriptionToSend={transcriptionToSend}
+          setTranscriptionToSend={setTranscriptionToSend}
+        />
       </Stack>
-  </div>);
+    </div>
+  );
 
   function nextPage() {
     setPage(page + 1);
@@ -278,7 +358,7 @@ export function Onboarding({}) {
       </Group>
       <Space h="xl" />
 
-      {{ 0: what_var, 1: who_var, 2: gender_var,3:make_call }[page]}
+      {{ 0: what_var, 1: who_var, 2: gender_var, 3: make_call }[page]}
     </div>
   );
 }

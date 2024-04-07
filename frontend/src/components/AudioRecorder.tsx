@@ -6,6 +6,7 @@ import {
 import MicrophoneStream from "microphone-stream";
 import { Buffer } from "buffer";
 import { AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY } from "../aws";
+import { Button } from "@mantine/core";
 
 interface AudioRecorderProps {
   setFullRecording: (transcription: string) => void;
@@ -148,9 +149,16 @@ export function AudioRecorder({
     <div>
       <h2></h2>
       <div>
-        <button onClick={() => startRecording(transcribeCallback)}>
-          Record
-        </button>
+        <Button
+          onClick={() => startRecording(transcribeCallback)}
+          size="xl"
+          style={{padding:"10px"}}
+          h={"100px"}
+          w={"100px"}
+          radius={"50%"}
+        >
+          Call me
+        </Button>
       </div>
     </div>
   );

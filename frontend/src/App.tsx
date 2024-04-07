@@ -15,12 +15,12 @@ function App() {
     setTranscriptionToSend("");
   }, [fullRecording]);
 
-  // ModelHookChat({
-  //   conversation_history: [],
-  //   who: "friend",
-  //   gender: "female",
-  //   situation: "I am in a rideshare on my way home.",
-  // });
+  ModelHookChat({
+    conversation_history: [],
+    who: "friend",
+    gender: "female",
+    situation: "I am in a rideshare on my way home.",
+  });
   return (
     <div>
       {/* <AudioRecorder
