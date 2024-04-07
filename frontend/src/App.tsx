@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { AudioRecorder } from "./components/AudioRecorder";
 import { Onboarding } from "./components/Onboarding";
 import { ModelHookChat } from "./components/ModelHook";
@@ -15,6 +15,12 @@ function App() {
     setTranscriptionToSend("");
   }, [fullRecording]);
 
+  ModelHookChat({
+    conversation_history: [],
+    who: "friend",
+    gender: "female",
+    situation: "I am in a rideshare on my way home.",
+  });
   return (
     <>
       <AudioRecorder
@@ -24,14 +30,6 @@ function App() {
       />
       <Onboarding />
     </>
-  ModelHookChat({
-    conversation_history: [],
-    who: "friend",
-    gender: "female",
-    situation: "I am in a rideshare on my way home.",
-  });
-
-  return (<></>
   );
 }
 
