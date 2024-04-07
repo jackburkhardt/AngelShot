@@ -61,8 +61,9 @@ export async function ModelTTS(config: ModelConfig, last_msg_text: string) {
 
     const response_blob = await response.blob();
 
-    const blob = new Blob([response_blob], { type: "audio/mp3" });
+    const blob = new Blob([response_blob], { type: "audio/wav" });
     const url = URL.createObjectURL(blob);
     const audio = new Audio(url);
+    audio.autoplay = true;
     audio.play();
 }
