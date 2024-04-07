@@ -23,15 +23,28 @@ export function Onboarding({}) {
   const [gender, setGender] = useState("");
   const [page, setPage] = useState(0);
   const [nextAccessible, setNextAccessible] = useState(true);
+  const [customSituation, setCustomSituation] = useState("");
+  const [customPerson, setCustomPerson] = useState("");
 
   useEffect(() => {
-    if ((page===0 && what==="") || (page === 1 && who==="")
-    || (page===2 && gender==="")) {
-        setNextAccessible(false)
+    setWhat(customSituation);
+  }, [customSituation]);
+
+  useEffect(() => {
+    setWho(customPerson);
+  }, [customPerson]);
+
+  useEffect(() => {
+    if (
+      (page === 0 && what === "") ||
+      (page === 1 && who === "") ||
+      (page === 2 && gender === "")
+    ) {
+      setNextAccessible(false);
     } else {
-        setNextAccessible(page<=2)
+      setNextAccessible(page <= 2);
     }
-  },[page,what,who,gender]);
+  }, [page, what, who, gender]);
 
   const what_var = (
     <div>
@@ -45,16 +58,16 @@ export function Onboarding({}) {
         className="content"
       >
         <Chip.Group multiple={false} value={what} onChange={setWhat}>
-          <Chip size="xl" value="rideshare">
+          <Chip className="chip" onClick={() => nextPage()} size="xl" value="rideshare">
             Using Rideshare
           </Chip>
-          <Chip size="xl" value="walking">
+          <Chip className="chip" onClick={() => nextPage()} size="xl" value="walking">
             Walking Alone
           </Chip>
-          <Chip size="xl" value="emergency">
+          <Chip className="chip" onClick={() => nextPage()} size="xl" value="emergency">
             Family Emergency
           </Chip>
-          <Chip size="xl" value="breakup">
+          <Chip className="chip" onClick={() => nextPage()} size="xl" value="breakup">
             Friend breakup
           </Chip>
           {/* <Chip size="xl" value="other">
@@ -62,12 +75,28 @@ export function Onboarding({}) {
       </Chip> */}
         </Chip.Group>
         <TextInput
+          value={customSituation}
           placeholder="Write custom situation"
           size="lg"
+          onChange={(event) => setCustomSituation(event.currentTarget.value)}
           rightSection={
-            <ActionIcon onClick={() => nextPage()} size="lg" aria-label="backward">
+            customSituation===""
+            ?
+            <ActionIcon
+            disabled
+              onClick={() => nextPage()}
+              size="lg"
+              aria-label="backward"
+            >
               <IconSend2 style={{ width: "70%", height: "70%" }} stroke={1.5} />
-            </ActionIcon>
+            </ActionIcon> :
+            <ActionIcon
+            onClick={() => nextPage()}
+            size="lg"
+            aria-label="backward"
+          >
+            <IconSend2 style={{ width: "70%", height: "70%" }} stroke={1.5} />
+          </ActionIcon>
           }
         />
       </Stack>
@@ -86,23 +115,40 @@ export function Onboarding({}) {
         className="content"
       >
         <Chip.Group multiple={false} value={who} onChange={setWho}>
-          <Chip size="xl" value="parent">
+          <Chip className="chip" onClick={() => nextPage()} size="xl" value="Parent">
             Parent
           </Chip>
-          <Chip size="xl" value="friend">
+          <Chip className="chip" onClick={() => nextPage()} size="xl" value="Friend">
             Friend
           </Chip>
-          <Chip size="xl" value="s_o">
+          <Chip className="chip" onClick={() => nextPage()} size="xl" value="Significant Other">
             Significant Other
           </Chip>
         </Chip.Group>
         <TextInput
+          value={customPerson}
           placeholder="Write custom person"
           size="lg"
+          onChange={(event) => setCustomPerson(event.currentTarget.value)}
           rightSection={
-            <ActionIcon onClick={() => nextPage()} size="lg" aria-label="backward">
+            customPerson===""
+            ?
+            <ActionIcon
+              onClick={() => nextPage()}
+              disabled
+              size="lg"
+              aria-label="backward"
+            >
               <IconSend2 style={{ width: "70%", height: "70%" }} stroke={1.5} />
             </ActionIcon>
+            :
+            <ActionIcon
+            onClick={() => nextPage()}
+            size="lg"
+            aria-label="backward"
+          >
+            <IconSend2 style={{ width: "70%", height: "70%" }} stroke={1.5} />
+          </ActionIcon>
           }
         />
       </Stack>
@@ -121,16 +167,32 @@ export function Onboarding({}) {
         className="content"
       >
         <Chip.Group multiple={false} value={gender} onChange={setGender}>
-          <Chip size="xl" value="M">
+          <Chip className="chip" onClick={() => nextPage()} size="xl" value="Male">
             Male
           </Chip>
-          <Chip size="xl" value="F">
+          <Chip className="chip" onClick={() => nextPage()} size="xl" value="Female">
             Female
           </Chip>
         </Chip.Group>
       </Stack>
     </div>
   );
+
+  const make_call = (<div>
+    <Title>Ready to call?</Title>
+      <Space h="xl" />
+      <Stack
+        h={300}
+        bg="var(--mantine-color-body)"
+        align="stretch"
+        gap="lg"
+        className="content"
+      >
+        <Text>Calling about: {what}</Text>
+        <Text>With: {who}</Text>
+        <Text>Gender: {gender}</Text>
+      </Stack>
+  </div>);
 
   function nextPage() {
     setPage(page + 1);
@@ -142,7 +204,7 @@ export function Onboarding({}) {
   return (
     <div>
       <Group justify="space-between" gap="xs">
-        {page === 0  ? (
+        {page === 0 ? (
           <ActionIcon
             disabled
             onClick={() => prevPage()}
@@ -198,7 +260,7 @@ export function Onboarding({}) {
       </Group>
       <Space h="xl" />
 
-      {{ 0: what_var, 1: who_var, 2: gender_var }[page]}
+      {{ 0: what_var, 1: who_var, 2: gender_var,3:make_call }[page]}
     </div>
   );
 }
